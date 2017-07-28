@@ -120,7 +120,7 @@ Servlet3.0 注解新特性免去web.xml配置，容器会根据web.xml中的meta
 7 - The JSP generates a page for the Container.
 8 - The Container returns the page to the happy user.
 
-![简单的MVC过程](E:\于洪磊\文档\jiusuo\jiusuo\简单的MVC过程.png)
+![简单的MVC过程](简单的MVC过程.png) 
 
 ### 1.5 Servlet 生命周期
 
@@ -138,7 +138,7 @@ Note right of Servlet对象:doGet()、doPost()等
 
 ### 2.1 监听器
 
-![Listener](E:\于洪磊\文档\jiusuo\jiusuo\Listener.png)
+![Listener](Listener.png)
 
 注解
 
@@ -151,7 +151,7 @@ Note right of Servlet对象:doGet()、doPost()等
 
 ### 2.2 作用域
 
-![属性作用域](E:\于洪磊\文档\jiusuo\jiusuo\属性作用域.png)
+![属性作用域](属性作用域.png)
 
 ### 2.3 会话管理
 

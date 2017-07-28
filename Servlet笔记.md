@@ -120,7 +120,11 @@ Servlet3.0 注解新特性免去web.xml配置，容器会根据web.xml中的meta
 7 - The JSP generates a page for the Container.
 8 - The Container returns the page to the happy user.
 
+<<<<<<< HEAD
 ![简单的MVC过程](简单的MVC过程.png)
+=======
+![简单的MVC过程](简单的MVC过程.png) 
+>>>>>>> be6c0339f0fabe1e730cddafd8791c82d21a57ba
 
 ### 1.5 Servlet 生命周期
 

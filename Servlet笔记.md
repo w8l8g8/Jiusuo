@@ -120,7 +120,7 @@ Servlet3.0 注解新特性免去web.xml配置，容器会根据web.xml中的meta
 7 - The JSP generates a page for the Container.
 8 - The Container returns the page to the happy user.
 
-![简单的MVC过程](E:\于洪磊\文档\jiusuo\jiusuo\简单的MVC过程.png)
+![简单的MVC过程](简单的MVC过程.png)
 
 ### 1.5 Servlet 生命周期
 
@@ -138,7 +138,7 @@ Note right of Servlet对象:doGet()、doPost()等
 
 ### 2.1 监听器
 
-![Listener](E:\于洪磊\文档\jiusuo\jiusuo\Listener.png)
+![Listener](Listener.png)
 
 注解
 
@@ -151,7 +151,7 @@ Note right of Servlet对象:doGet()、doPost()等
 
 ### 2.2 作用域
 
-![属性作用域](E:\于洪磊\文档\jiusuo\jiusuo\属性作用域.png)
+![属性作用域](属性作用域.png)
 
 ### 2.3 会话管理
 
@@ -168,3 +168,135 @@ getMaxInactiveInterval();
 invalidate();//结束会话
 ```
 
+![SessionListener](SessionListener.png)
+
+## 3 JSP
+
+### 3.1 容器如何处理JSP
+
+![容器处理JSP](容器处理JSP.png)
+
+隐式对象与API的对应关系图
+
+![隐式对象](隐式对象.png)
+
+### 3.2 JSP生命周期
+
+理解**JSP底层功能**的关键就是去理解它们**所遵守的生命周期**。
+
+JSP生命周期就是从创建到销毁的整个过程，类似于servlet生命周期，区别在于JSP生命周期还包括**将JSP文件编译成servlet**。
+
+ 以下是JSP生命周期中所走过的几个阶段：
+
+- **编译阶段：**
+
+  **servlet容器**编译servlet源文件，生成servlet类
+
+- 初始化阶段：
+
+  加载与JSP对应的servlet类，创建其实例，并调用它的初始化方法
+
+- 执行阶段：
+
+  调用与JSP对应的servlet实例的服务方法
+
+- 销毁阶段：
+
+  调用与JSP对应的servlet实例的销毁方法，然后销毁servlet实例
+
+很明显，JSP生命周期的**四个主要阶段**和servlet生命周期非常相似，下面给出图示：
+
+ ![LifeCycle](http://www.runoob.com/wp-content/uploads/2014/01/jsp_life_cycle.jpg?_=5607886)
+
+**1.JSP编译**
+
+当浏览器请求JSP页面（通过浏览器浏览URL？）时，**JSP引擎（？）**会首先去检查是否需要**编译**这个文件。如果这个文件没有被编译过，或者在上次编译后被更改过，则编译这个JSP文件。（转为且编译servlet）
+
+编译的过程包括三个步骤：
+
+- 解析JSP文件。
+- 将JSP文件转为servlet。
+- 编译servlet。
+
+**2.JSP初始化**
+
+**容器（？）**载入JSP文件后，它会在为请求提供任何服务**前**调用`jspInit()`方法。如果您需要执行自定义的**JSP初始化任务**，复写`jspInit()`方法就行了，就像下面这样：
+
+```
+public void jspInit(){
+  // 初始化代码
+}
+```
+
+一般来讲**程序只初始化一次**，servlet也是如此。通常情况下您可以**在jspInit()方法中**初始化数据库连接、打开文件和创建查询表。
+
+ 
+
+**3.JSP执行**
+
+这一阶段描述了JSP生命周期中一切与请求相关的交互行为，直到被销毁。
+
+当**JSP网页完成初始化**后，**JSP引擎（？）**将会调用`_jspService()`方法。
+
+`_jspService()`方法需要一个**HttpServletRequest对象**和一个**HttpServletResponse对象**作为它的参数，就像下面这样：
+
+```
+void _jspService(HttpServletRequest request,
+                 HttpServletResponse response)
+{
+   // 服务端处理代码
+}
+```
+
+`_jspService()`方法在**每个request中（？）**被调用一次并且**负责产生**与之相对应的response，并且它还负责**产生**所有7个HTTP方法的回应**（?）**，比如GET、POST、DELETE等等。**\*(这过程不懂？)***
+
+**4.JSP清理**
+
+JSP生命周期的销毁阶段描述了当**一个JSP网页从容器中被移除**时所发生的一切。
+
+`jspDestroy()`方法在JSP中等价于servlet中的销毁方法。当您需要执行任何清理工作时复写`jspDestroy()`方法，比如释放数据库连接或者关闭文件夹等等。
+
+`jspDestroy()`方法的格式如下：
+
+```
+public void jspDestroy()
+{
+   // 清理代码
+}
+```
+
+### 3.3 JSP动作
+
+创建bean
+
+```jsp
+<jsp:useBean id = "person" class= "foo.class" scoper="request">
+  <jsp:setProperty name = "person" property="name" value="Fred"/>
+  <%--只有新建bean才会运行jsp:setProperty语句--%>
+</jsp:useBean>
+```
+
+### 3.4 EL表达式
+
+EL表达式支持的隐式对象
+
+```
+pageScope
+requestScope
+SessionScope
+applicationScope//作用域属性的Map
+
+param
+paramValues//请求参数的map
+
+header
+headerValues//请求首部的map
+
+cookie
+
+initParam//上下文初始化参数的map
+
+PageContext 除了PageContext之外都是Map对象
+```
+
+Using the dot (.) operator to access properties and map values

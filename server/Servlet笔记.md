@@ -120,12 +120,7 @@ Servlet3.0 注解新特性免去web.xml配置，容器会根据web.xml中的meta
 7 - The JSP generates a page for the Container.
 8 - The Container returns the page to the happy user.
 
-<<<<<<< HEAD
-![简单的MVC过程](简单的MVC过程.png)
-=======
 ![简单的MVC过程](简单的MVC过程.png) 
->>>>>>> be6c0339f0fabe1e730cddafd8791c82d21a57ba
-
 ### 1.5 Servlet 生命周期
 
 ```sequence
@@ -137,6 +132,7 @@ Title:Servlet生命周期
 Note right of Servlet对象:doGet()、doPost()等
 容器-->Servlet对象:destroy()：只能调用一次
 ```
+![](Servlet生命周期.png)
 
 ## 2 会话和请求
 
@@ -304,3 +300,10 @@ PageContext 除了PageContext之外都是Map对象
 ```
 
 Using the dot (.) operator to access properties and map values
+
+## 4 部署
+
+部署图：
+
+![部署图](部署图.png)
+
